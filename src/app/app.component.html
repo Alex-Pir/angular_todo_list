@@ -1,0 +1,32 @@
+<div class="todo-list">
+    <h1>Список задач</h1>
+
+    <div class="tasks">
+      <task
+        *ngFor="let task of tasks"
+        [task]="task"
+        (onDeleteTask)="onDelete($event)"
+        (onCompleteTask)="onComplete($event)"
+      >
+      </task>
+    </div>
+
+    <form #myForm="ngForm" class="task-form">
+      <input ngModel name="task" type="text" placeholder="Введите задачу">
+      <button (click)="addTask(myForm)">Добавить задачу</button>
+    </form>
+
+    <div 
+      class="complete-tasks"
+      *ngIf="completeTasks.length > 0"
+    >
+        <h2>Выполненные задачи:</h2>
+        <task
+          *ngFor="let task of completeTasks"
+          [task]="task"
+          [isComplete]="true"
+          (onDeleteTask)="onDelete($event)"
+        >
+        </task>
+    </div>
+</div>

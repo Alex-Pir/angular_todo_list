@@ -1,0 +1,4 @@
+<div class="task" *ngIf="task">
+    <p>{{task.name}}</p>
+    <button *ngIf="!isComplete" (click)="complete()">Выполнено</button>
+</div>
