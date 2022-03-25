@@ -10,6 +10,7 @@ import { Task } from './tasks/task.interface';
 export class AppComponent {
   name: string = "Alexander";
   showName: boolean = false;
+  showActiveTasks: boolean = true;
   tasks: Array<Task> = [
     {
       id: 1,
@@ -24,10 +25,16 @@ export class AppComponent {
    */
   addTask(myForm: NgForm): void {
 
+    const taskName = myForm.value.task;
+
+    if (taskName.trim().length == 0) {
+      return;
+    }
+
     this.tasks.push(
       {
         id: this.getLastIndexNumber(),
-        name: myForm.value.task
+        name: taskName
       }
     );
 
@@ -43,19 +50,19 @@ export class AppComponent {
 
   /**
    * Обработчик события выполнения задачи
-   * @param id 
+   * @param id
    */
   onComplete(id: number): void {
     const findIndex = this.tasks.findIndex(task => task.id == id);
 
     this.completeTasks.push(this.tasks[findIndex]);
-    
+
     this.tasks.splice(findIndex, 1);
   }
 
   /**
    * Возвращает новый индекс для добавляемого элемента
-   * @returns 
+   * @returns
    */
   getLastIndexNumber(): number {
     if (this.tasks.length == 0) {
